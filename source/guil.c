@@ -13,8 +13,12 @@
     A7_GUIL_INIT_IN( name );\
     A7_GUIL_INIT_OUT( name )
 
+struct A7GuilContextFlags {
+    unsigned int active : 1;
+};
+
 struct A7GuilContext {
-    unsigned int activeBit_ : 1;
+    struct A7GuilContextFlags flags;
 };
 
 static struct A7GuilContext A7_Guil_Context = { 0 };
@@ -33,7 +37,7 @@ static struct A7Guil a7_Guil_Ret_Error( enum A7GuilError error ) {
     /* init */
     struct A7Guil init = { 0 };
     /* body */
-    assert( error > 0 );
+    assert( error < 0 );
     init.error = error;
 
     return init;
@@ -44,7 +48,7 @@ static struct A7Guil a7_Guil_Ret_Warn( A7GuilContextPtr value, enum A7GuilError 
     struct A7Guil init;
     /* body */
     assert( value != NULL );
-    assert( warn < 0 );
+    assert( warn > 0 );
     init.value = value;
     init.error = warn;
 
@@ -57,17 +61,17 @@ struct A7Guil a7_guil_create( void ) {
     /* init */
     A7_GUIL_INIT( guil );
     /* body */
-    if ( guil->activeBit_ ) { return a7_Guil_Ret_Error( A7GuilError_Hard_AlreadyActive ); }
+    if ( guil->flags.active ) { return a7_Guil_Ret_Error( A7GuilError_Hard_AlreadyActive ); }
 
-    guilOut->activeBit_ = 1;
+    guilOut->flags.active = 1;
 
     return a7_Guil_Ret_Value( guilOut );
 }
 
 A7GuilContextPtr a7_guil_delete( A7GuilContextPtr value ) {
-    if ( !value || !value->activeBit_ ) { return NULL; }
+    if ( !value || !value->flags.active ) { return NULL; }
 
-    value->activeBit_ = 0;
+    value->flags.active = 0;
     return NULL;
 }
 
