@@ -5,13 +5,30 @@
 extern "C" {
 #endif
 
-typedef struct A7Guil_ A7Guil;
-typedef struct A7Guil_ *A7GuilPtr;
+typedef struct A7GuilContext_ A7GuilContext;
+typedef struct A7GuilContext_ *A7GuilContextPtr;
+/*
+ * positive: soft error(warning)
+ * negative: hard error, clean pointer to `NULL`
+ */
+enum A7GuilError {
+    A7GuilError_Hard_AlreadyActive = -1,
+    A7GuilError_None = 0,
+    A7GuilError_Soft_TODO = 1
+};
 
-A7GuilPtr a7_guil_create( );
-/* NOTE: always returns NULL just to clear original if needed */
-A7GuilPtr a7_guil_delete( );
+struct A7Guil {
+    A7GuilContextPtr value;
+    enum A7GuilError error;
+};
 
+/* TODO: add create with configuration, where `config` passed as
+ * a first out parameter, so passed hints could be overwritten
+ * to what actually was applied, with after input parameter
+ * like enum strict mode which would return NULL if hints cannot be applied */
+struct A7Guil a7_guil_create( void );
+
+A7GuilContextPtr a7_guil_delete( A7GuilContextPtr value );
 
 #ifdef __cplusplus
 }

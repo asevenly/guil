@@ -9,7 +9,7 @@
 namespace wnd = son8::windowed;
 
 int main( ) {
-    auto guil = a7_guil_create( );
+    auto [guil,error] = a7_guil_create( );
     assert( guil != NULL and "guil null on creation" );
 
     wnd::Config config;
@@ -21,7 +21,7 @@ int main( ) {
         glClear( GL_COLOR_BUFFER_BIT );
     });
 
-    guil = a7_guil_delete( );
+    guil = a7_guil_delete( guil );
     assert( guil == NULL and "guil not null on deletion" );
 }
 

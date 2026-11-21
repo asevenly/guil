@@ -6,6 +6,8 @@ add_library( ${A7_LIB} )
 target_sources( ${A7_LIB} PRIVATE guil.c )
 target_link_libraries( ${A7_LIB} PRIVATE SDL2::SDL2 )
 
+target_compile_options( ${A7_LIB} PRIVATE -Wall -Wextra -pedantic-errors )
+
 # Apache License 2.0
 # NO WARRANTY OF ANY KIND see <http://www.apache.org/licenses/LICENSE-2.0>
 # SPDX-License-Identifier: Apache-2.0
