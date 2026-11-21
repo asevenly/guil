@@ -4,6 +4,7 @@
 #include <glad/son8.hxx>
 // `std`
 #include <cassert>
+#include <cstddef>
 
 namespace wnd = son8::windowed;
 
@@ -11,10 +12,12 @@ int main( ) {
     auto guil = a7_guil_create( );
     assert( guil != NULL and "guil null on creation" );
 
-    wnd::Window window;
-
-    window.run( []{
-        glClearColor( 0.8, 0.1, 0.1, 0.0 );
+    wnd::Config config;
+    config.set( wnd::OpenGL::Vx0303CB );
+    config.set( wnd::Config::Width{ 1280u });
+    config.set( wnd::Config::Height{ 720u });
+    wnd::Window{ config }.run( []{
+        glClearColor( .2, .3, .3, .0 );
         glClear( GL_COLOR_BUFFER_BIT );
     });
 
