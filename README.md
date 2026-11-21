@@ -1,5 +1,5 @@
-# `TEMPLATE`
-> Project Legend
+# `GUIL`
+> C90 Detached Process GUI Library
 
 Project Overview
 
