@@ -6,37 +6,43 @@
 /* private implementation */
 
 #define A7_GUIL_INIT_IN( name )\
-    struct A7GuilContext_ const *name = &A7_Guil_Context
+    struct A7GuilContext const *name = &A7_Guil_Context
 #define A7_GUIL_INIT_OUT( name )\
-    struct A7GuilContext_ *name##Out = &A7_Guil_Context
+    struct A7GuilContext *name##Out = &A7_Guil_Context
 #define A7_GUIL_INIT( name )\
     A7_GUIL_INIT_IN( name );\
     A7_GUIL_INIT_OUT( name )
 
-struct A7GuilContext_ {
+struct A7GuilContext {
     unsigned int activeBit_ : 1;
 };
 
-static struct A7GuilContext_ A7_Guil_Context = { 0 };
+static struct A7GuilContext A7_Guil_Context = { 0 };
 
 static struct A7Guil a7_Guil_Ret_Value( A7GuilContextPtr value ) {
+    /* init */
     struct A7Guil init = { 0 };
+    /* body */
     assert( value != NULL );
     init.value = value;
 
     return init;
 }
 
-static struct A7Guil a7_Guil_Ret_Error( int error ) {
+static struct A7Guil a7_Guil_Ret_Error( enum A7GuilError error ) {
+    /* init */
     struct A7Guil init = { 0 };
+    /* body */
     assert( error > 0 );
     init.error = error;
 
     return init;
 }
 
-static struct A7Guil a7_Gui_Ret_Warn( A7GuilContextPtr value, int warn ) {
+static struct A7Guil a7_Guil_Ret_Warn( A7GuilContextPtr value, enum A7GuilError warn ) {
+    /* init */
     struct A7Guil init;
+    /* body */
     assert( value != NULL );
     assert( warn < 0 );
     init.value = value;

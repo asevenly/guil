@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-typedef struct A7GuilContext_ A7GuilContext;
-typedef struct A7GuilContext_ *A7GuilContextPtr;
+struct A7GuilContext;
+typedef struct A7GuilContext *A7GuilContextPtr;
 /*
  * positive: soft error(warning)
  * negative: hard error, clean pointer to `NULL`
