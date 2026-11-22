@@ -10,6 +10,7 @@ namespace wnd = son8::windowed;
 
 int main( ) {
     auto [guil,error] = a7_guil_create( );
+    assert( error >= 0 and "guil hard error" );
     assert( guil != NULL and "guil null on creation" );
 
     wnd::Config config;

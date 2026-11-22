@@ -8,11 +8,15 @@ extern "C" {
 struct A7GuilContext;
 typedef struct A7GuilContext *A7GuilContextPtr;
 /*
- * positive: soft error(warning)
- * negative: hard error, clean pointer to `NULL`
+ * negative(`<0`): hard error, clean pointer to `NULL`
+ * positive(`>0`): soft error (warning)
  */
 enum A7GuilError {
-    A7GuilError_Hard_AlreadyActive = -1,
+    A7GuilError_Hard_Active = -1,
+    A7GuilError_Hard_InitSDL = -2,
+    A7GuilError_Hard_WindowSDL = -3,
+    A7GuilError_Hard_Pipe = -4,
+    A7GuilError_Hard_Fork = -5,
     A7GuilError_None = 0,
     A7GuilError_Soft_TODO = 1
 };
